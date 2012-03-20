@@ -27,6 +27,8 @@ ofxTurboJpeg::ofxTurboJpeg(){
 //rgb only for now...
 void ofxTurboJpeg::save( ofImage * img, string fileName, int jpegQuality ){
 	
+	if (img == NULL) return;
+	
 	int pitch = 0, flags = 0, jpegsubsamp = 0;
 	unsigned long size = 0;
 	int bpp = 3;	//rgb only for now...
@@ -38,40 +40,44 @@ void ofxTurboJpeg::save( ofImage * img, string fileName, int jpegQuality ){
 	FILE * file = fopen( filePath.c_str(), "wb");
 	fwrite ( output , 1 , size , file );
 	fclose( file);
-	free (output);
-	
+	free (output);	
 }
 
-
+//rgb only for now...
 ofImage* ofxTurboJpeg::load(string fileName){
 	
-	ofImage * img;
+	ofImage * img = NULL;
 	
-	img = new ofImage();
-	
-	int flags = 0;
-	flags = TJ_FASTUPSAMPLE; //faster but worse!
-
 	string filePath = ofToDataPath( fileName, false);
 	FILE * file = fopen( filePath.c_str(), "rb");
+
+	if ( file != NULL){
+
+		int flags = 0;
+		flags = TJ_FASTUPSAMPLE; //faster but worse!
 	
-	struct stat info;
-	stat(filePath.c_str(), &info);	
-	unsigned char * pixels = (unsigned char *)malloc(info.st_size * sizeof(char));
-	fread(pixels, info.st_size, 1, file);
-	fclose(file);
-	
-	int w; int h; int subsamp;
-	tjDecompressHeader2( handleDecompress, pixels, info.st_size, &w, &h, &subsamp );
-	//printf("jpeg is %d x %d\n", w, h);
-	// 3 >> rgb only for now
-	unsigned char* rgbData = (unsigned char*) malloc(  3 * w * h * sizeof(char));	
-	tjDecompress( handleDecompress, pixels, info.st_size, rgbData, w, 0, h, 3 /* rgb only for now*/, 0 );
-	
-	img->setFromPixels( rgbData, w, h, OF_IMAGE_COLOR);
-	
-	delete rgbData;
-	delete pixels;
+		img = new ofImage();
+		struct stat info;
+		stat(filePath.c_str(), &info);	
+		unsigned char * pixels = (unsigned char *)malloc(info.st_size * sizeof(char));
+		fread(pixels, info.st_size, 1, file);
+		fclose(file);
+		
+		int w; int h; int subsamp;
+		tjDecompressHeader2( handleDecompress, pixels, info.st_size, &w, &h, &subsamp );
+		//printf("jpeg is %d x %d\n", w, h);
+		// 3 >> rgb only for now
+		unsigned char* rgbData = (unsigned char*) malloc(  3 * w * h * sizeof(char));	
+		tjDecompress( handleDecompress, pixels, info.st_size, rgbData, w, 0, h, 3 /* rgb only for now*/, 0 );
+		
+		img->setFromPixels( rgbData, w, h, OF_IMAGE_COLOR);
+		
+		delete rgbData;
+		delete pixels;
+	}else {
+		ofLog(OF_LOG_ERROR, "ofxTurboJpeg::load() >> Image %s not found", fileName.c_str());
+	}
+
 	
 	return img;
 
