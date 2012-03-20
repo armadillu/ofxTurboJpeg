@@ -29,12 +29,7 @@ void ofxTurboJpeg::save( ofImage * img, string fileName, int jpegQuality ){
 	
 	int pitch = 0, flags = 0, jpegsubsamp = 0;
 	unsigned long size = 0;
-	int bpp = 3;	
-	switch ( img->getPixelsRef().getImageType() ) {
-		case OF_IMAGE_COLOR_ALPHA: bpp = 4; break;
-		case OF_IMAGE_COLOR: bpp = 3; break;
-		case OF_IMAGE_GRAYSCALE: bpp  = 1; break;
-	}
+	int bpp = 3;	//rgb only for now...
 
 	unsigned char * output = (unsigned char*) malloc ( sizeof(char) * img->width * img->height * bpp ); 
 	tjCompress(handleCompress, img->getPixels() , img->width, pitch, img->height, bpp, output, &size, jpegsubsamp, jpegQuality, flags);
