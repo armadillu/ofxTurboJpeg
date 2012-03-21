@@ -23,12 +23,21 @@ ofxTurboJpeg::ofxTurboJpeg(){
 	}
 }
 
+ofxTurboJpeg::~ofxTurboJpeg(){
+	if (handleCompress){
+		tjDestroy(handleCompress);
+	}
+	if (handleDecompress){
+		tjDestroy(handleDecompress);
+	}
+}
+
 
 //rgb only for now...
 void ofxTurboJpeg::save( ofImage * img, string fileName, int jpegQuality ){
 	
 	if (img == NULL) return;
-	
+
 	int pitch = 0, flags = 0, jpegsubsamp = 0;
 	unsigned long size = 0;
 	int bpp = 3;	//rgb only for now...
@@ -64,7 +73,9 @@ ofImage* ofxTurboJpeg::load(string fileName){
 		fclose(file);
 		
 		int w; int h; int subsamp;
-		tjDecompressHeader2( handleDecompress, pixels, info.st_size, &w, &h, &subsamp );
+		int ok = tjDecompressHeader2( handleDecompress, pixels, info.st_size, &w, &h, &subsamp );
+		if (ok!=0) {printf("Error in tjDecompressHeader2():\n%s\n", tjGetErrorStr());}
+		
 		//printf("jpeg is %d x %d\n", w, h);
 		// 3 >> rgb only for now
 		unsigned char* rgbData = (unsigned char*) malloc(  3 * w * h * sizeof(char));	

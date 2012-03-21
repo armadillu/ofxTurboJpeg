@@ -19,6 +19,8 @@ class ofxTurboJpeg{
 	public:
 	
 		ofxTurboJpeg();
+		~ofxTurboJpeg();
+	
 		void save( ofImage * img, string path, int jpegQuality );	
 		ofImage* load(string path);
 	

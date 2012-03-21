@@ -17,26 +17,26 @@ void testApp::update(){
 	if (turboJpegLoadedImage != NULL) delete turboJpegLoadedImage;
 	
 	// load with turboJPG //////////////////////////
-	chrono->startMeasuring("load turbo jpeg");		
+	chrono->startMeasuring("load turbo jpeg");
 		turboJpegLoadedImage = turbo.load("loadTest.jpg");	
-	chrono->stopMeasuring("load turbo jpeg");	
+	chrono->stopMeasuring("load turbo jpeg");
 
 	
 	// load with freeImage //////////////////////////
-	chrono->startMeasuring("load freeImage jpeg");		
+	chrono->startMeasuring("load freeImage jpeg");
 		freeImageLoadedImage.loadImage("loadTest.jpg");	
-	chrono->stopMeasuring("load freeImage jpeg");	
+	chrono->stopMeasuring("load freeImage jpeg");
 
 
 	// save with turboJPG //////////////////////////
-	chrono->startMeasuring("save turbo jpeg");		
+	chrono->startMeasuring("save turbo jpeg");
 		turbo.save( turboJpegLoadedImage, "save turbo.jpg", 75);
-	chrono->stopMeasuring("save turbo jpeg");	
+	chrono->stopMeasuring("save turbo jpeg");
 
 	// save with freeImage //////////////////////////
-	chrono->startMeasuring("save freeImage jpeg");		
+	chrono->startMeasuring("save freeImage jpeg");
 		freeImageLoadedImage.saveImage("freeImge.jpg", OF_IMAGE_QUALITY_HIGH);
-	chrono->stopMeasuring("save freeImage jpeg");	
+	chrono->stopMeasuring("save freeImage jpeg");
 	
 }
 
