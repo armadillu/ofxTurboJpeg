@@ -1,95 +1,82 @@
-/*
- *  ofxTurboJpeg.cpp
- *  emptyExample
- *
- *  Created by Oriol Ferrer Mesià on 20/03/12.
- *  Copyright 2012 uri.cat. All rights reserved.
- *
- */
-
 #include "ofxTurboJpeg.h"
 #include <sys/stat.h>
 
-ofxTurboJpeg::ofxTurboJpeg(){
-	
-	handleCompress = tjInitCompress();	
-	if (handleCompress == NULL){
+ofxTurboJpeg::ofxTurboJpeg()
+{
+
+	handleCompress = tjInitCompress();
+	if (handleCompress == NULL)
+	{
 		printf("Error in tjInitCompress():\n%s\n", tjGetErrorStr());
 	}
 
 	handleDecompress = tjInitDecompress();
-	if (handleDecompress == NULL){
+	if (handleDecompress == NULL)
+	{
 		printf("Error in tjInitDeCompress():\n%s\n", tjGetErrorStr());
 	}
 }
 
-ofxTurboJpeg::~ofxTurboJpeg(){
-	if (handleCompress){
+ofxTurboJpeg::~ofxTurboJpeg()
+{
+	if (handleCompress)
+	{
 		tjDestroy(handleCompress);
 	}
-	if (handleDecompress){
+	if (handleDecompress)
+	{
 		tjDestroy(handleDecompress);
 	}
 }
 
-
-//rgb only for now...
-void ofxTurboJpeg::save( ofImage * img, string fileName, int jpegQuality ){
-	
-	if (img == NULL) return;
-
+void ofxTurboJpeg::save(ofBuffer &buf, const ofPixels& pix, int jpegQuality)
+{
 	int pitch = 0, flags = 0, jpegsubsamp = 0;
 	unsigned long size = 0;
-	int bpp = 3;	//rgb only for now...
-
-	unsigned char * output = (unsigned char*) malloc ( sizeof(char) * img->width * img->height * bpp ); 
-	tjCompress(handleCompress, img->getPixels() , img->width, pitch, img->height, bpp, output, &size, jpegsubsamp, jpegQuality, flags);
-
-	string filePath = ofToDataPath( fileName, false);
-	FILE * file = fopen( filePath.c_str(), "wb");
-	fwrite ( output , 1 , size , file );
-	fclose( file);
-	free (output);	
+	int bpp = 3;
+	
+	assert(pix.getImageType() == OF_IMAGE_COLOR);
+	
+	vector<unsigned char> buffer;
+	buffer.resize(pix.getWidth() * pix.getHeight() * bpp);
+	
+	unsigned char * output = &buffer[0];
+	
+	tjCompress(handleCompress, (unsigned char*)pix.getPixels(), pix.getWidth(), pitch, pix.getHeight(), bpp, output, &size, jpegsubsamp, jpegQuality, flags);
+	
+	buf.set((const char*)output, size);
 }
 
 //rgb only for now...
-ofImage* ofxTurboJpeg::load(string fileName){
-	
-	ofImage * img = NULL;
-	
-	string filePath = ofToDataPath( fileName, false);
-	FILE * file = fopen( filePath.c_str(), "rb");
+void ofxTurboJpeg::save(string path, const ofPixels& pix, int jpegQuality)
+{
+	ofBuffer buf;
+	save(buf, pix, jpegQuality);
+	ofBufferToFile(path, buf, true);
+}
 
-	if ( file != NULL){
+bool ofxTurboJpeg::load(string path, ofPixels &pix)
+{
+	ofBuffer buf = ofBufferFromFile(path, true);
+	if (buf.size() == 0) return false;
+	return load(buf, pix);
+}
 
-		int flags = 0;
-		flags = TJ_FASTUPSAMPLE; //faster but worse!
+bool ofxTurboJpeg::load(const ofBuffer& buf, ofPixels &pix)
+{
+	int w, h;
+	int subsamp;
+	int ok = tjDecompressHeader2(handleDecompress, (unsigned char*)buf.getBinaryBuffer(), buf.size(), &w, &h, &subsamp);
 	
-		img = new ofImage();
-		struct stat info;
-		stat(filePath.c_str(), &info);	
-		unsigned char * pixels = (unsigned char *)malloc(info.st_size * sizeof(char));
-		fread(pixels, info.st_size, 1, file);
-		fclose(file);
-		
-		int w; int h; int subsamp;
-		int ok = tjDecompressHeader2( handleDecompress, pixels, info.st_size, &w, &h, &subsamp );
-		if (ok!=0) {printf("Error in tjDecompressHeader2():\n%s\n", tjGetErrorStr());}
-		
-		//printf("jpeg is %d x %d\n", w, h);
-		// 3 >> rgb only for now
-		unsigned char* rgbData = (unsigned char*) malloc(  3 * w * h * sizeof(char));	
-		tjDecompress( handleDecompress, pixels, info.st_size, rgbData, w, 0, h, 3 /* rgb only for now*/, 0 );
-		
-		img->setFromPixels( rgbData, w, h, OF_IMAGE_COLOR);
-		
-		delete rgbData;
-		delete pixels;
-	}else {
-		ofLog(OF_LOG_ERROR, "ofxTurboJpeg::load() >> Image %s not found", fileName.c_str());
+	if (ok != 0)
+	{
+		printf("Error in tjDecompressHeader2():\n%s\n", tjGetErrorStr());
+		return false;
 	}
-
 	
-	return img;
-
+	pix.allocate(w, h, 3);
+	
+	tjDecompress(handleDecompress, (unsigned char*)buf.getBinaryBuffer(), buf.size(), pix.getPixels(), w, 0, h, 3, 0);
+	
+	return true;
 }

@@ -1,33 +1,56 @@
-/*
- *  ofxTurboJpeg.h
- *  emptyExample
- *
- *  Created by Oriol Ferrer Mesià on 20/03/12.
- *  Copyright 2012 uri.cat. All rights reserved.
- *
- */
-
-
 #pragma once
 
-#include "turbojpeg.h"
 #include "ofMain.h"
-#include <fstream.h>
 
-class ofxTurboJpeg{
-	
-	public:
-	
-		ofxTurboJpeg();
-		~ofxTurboJpeg();
-	
-		void save( ofImage * img, string path, int jpegQuality );	
-		ofImage* load(string path);
-	
-	private:	
+#include <turbojpeg.h>
 
-		tjhandle handleCompress;
-		tjhandle handleDecompress;
+class ofxTurboJpeg
+{
+
+public:
+
+	ofxTurboJpeg();
+	~ofxTurboJpeg();
+
+	void save(string path, const ofPixels& img, int jpegQuality = 90);
+	void save(ofBuffer &buf, const ofPixels& img, int jpegQuality = 90);
+
+	void save(string path, ofImage& img, int jpegQuality = 90)
+	{
+		save(path, img.getPixelsRef(), jpegQuality);
+	}
 	
+	void save(ofBuffer &buf, ofImage& img, int jpegQuality = 90)
+	{
+		save(buf, img.getPixelsRef(), jpegQuality);
+	}
+	
+	bool load(string path, ofPixels &pix);
+	bool load(const ofBuffer& buf, ofPixels &pix);
+
+	bool load(string path, ofImage &img)
+	{
+		if (load(path, img.getPixelsRef()))
+		{
+			img.update();
+			return true;
+		}
+		return false;
+	}
+	
+	bool load(const ofBuffer& buf, ofImage &img)
+	{
+		if (load(buf, img.getPixelsRef()))
+		{
+			img.update();
+			return true;
+		}
+		return false;
+	}
+	
+private:
+
+	tjhandle handleCompress;
+	tjhandle handleDecompress;
+
 };
-	
