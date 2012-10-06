@@ -27,6 +27,9 @@ ofxTurboJpeg::~ofxTurboJpeg()
 	{
 		tjDestroy(handleDecompress);
 	}
+	
+	handleCompress = NULL;
+	handleDecompress = NULL;
 }
 
 void ofxTurboJpeg::save(ofBuffer &buf, const ofPixels& pix, int jpegQuality)

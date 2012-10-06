@@ -1,95 +1,104 @@
 #include "testApp.h"
 
-
 //--------------------------------------------------------------
-void testApp::setup(){
-
+void testApp::setup()
+{
 	ofSetFrameRate(60);
-	ofBackground(0, 0, 0, 0);
+	ofSetVerticalSync(true);
+	
+	ofBackground(30);
+	
 	chrono = ofxTimeMeasurements::instance();
-	turboJpegLoadedImage = NULL;
-
+	
+	freeImageLoadedImage.loadImage("loadTest.jpg");	
 }
 
 //--------------------------------------------------------------
-void testApp::update(){
-
-	if (turboJpegLoadedImage != NULL) delete turboJpegLoadedImage;
-	
+void testApp::update()
+{
 	// load with turboJPG //////////////////////////
 	chrono->startMeasuring("load turbo jpeg");
-		turboJpegLoadedImage = turbo.load("loadTest.jpg");	
+		turbo.load("loadTest.jpg", turboJpegLoadedImage);
 	chrono->stopMeasuring("load turbo jpeg");
-
 	
 	// load with freeImage //////////////////////////
 	chrono->startMeasuring("load freeImage jpeg");
-		freeImageLoadedImage.loadImage("loadTest.jpg");	
+	freeImageLoadedImage.loadImage("loadTest.jpg");
 	chrono->stopMeasuring("load freeImage jpeg");
-
-
+	
+	
 	// save with turboJPG //////////////////////////
 	chrono->startMeasuring("save turbo jpeg");
-		turbo.save( turboJpegLoadedImage, "save turbo.jpg", 75);
+		turbo.save("save turbo.jpg", turboJpegLoadedImage, 75);
 	chrono->stopMeasuring("save turbo jpeg");
-
+	
 	// save with freeImage //////////////////////////
 	chrono->startMeasuring("save freeImage jpeg");
-		freeImageLoadedImage.saveImage("freeImge.jpg", OF_IMAGE_QUALITY_HIGH);
+	freeImageLoadedImage.saveImage("freeImge.jpg", OF_IMAGE_QUALITY_HIGH);
 	chrono->stopMeasuring("save freeImage jpeg");
+
+}
+
+//--------------------------------------------------------------
+void testApp::draw()
+{
+	turboJpegLoadedImage.draw(0,0);
+	freeImageLoadedImage.draw( turboJpegLoadedImage.getWidth(), 0);
 	
-}
-
-//--------------------------------------------------------------
-void testApp::draw(){
-
-	turboJpegLoadedImage->draw(0,0);
-	freeImageLoadedImage.draw( turboJpegLoadedImage->getWidth(), 0);
-	
-	chrono->draw(20, turboJpegLoadedImage->getHeight() + 10);
-}
-
-//--------------------------------------------------------------
-void testApp::keyPressed(int key){
+	chrono->draw(20, turboJpegLoadedImage.getHeight() + 10);
 
 }
 
 //--------------------------------------------------------------
-void testApp::keyReleased(int key){
+void testApp::keyPressed(int key)
+{
 
 }
 
 //--------------------------------------------------------------
-void testApp::mouseMoved(int x, int y ){
+void testApp::keyReleased(int key)
+{
 
 }
 
 //--------------------------------------------------------------
-void testApp::mouseDragged(int x, int y, int button){
+void testApp::mouseMoved(int x, int y)
+{
 
 }
 
 //--------------------------------------------------------------
-void testApp::mousePressed(int x, int y, int button){
+void testApp::mouseDragged(int x, int y, int button)
+{
 
 }
 
 //--------------------------------------------------------------
-void testApp::mouseReleased(int x, int y, int button){
+void testApp::mousePressed(int x, int y, int button)
+{
 
 }
 
 //--------------------------------------------------------------
-void testApp::windowResized(int w, int h){
+void testApp::mouseReleased(int x, int y, int button)
+{
 
 }
 
 //--------------------------------------------------------------
-void testApp::gotMessage(ofMessage msg){
+void testApp::windowResized(int w, int h)
+{
 
 }
 
 //--------------------------------------------------------------
-void testApp::dragEvent(ofDragInfo dragInfo){ 
+void testApp::gotMessage(ofMessage msg)
+{
+
+}
+
+//--------------------------------------------------------------
+void testApp::dragEvent(ofDragInfo dragInfo)
+{
 
 }

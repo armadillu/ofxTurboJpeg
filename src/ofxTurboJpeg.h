@@ -2,7 +2,7 @@
 
 #include "ofMain.h"
 
-#include <turbojpeg.h>
+#include "turbojpeg.h"
 
 class ofxTurboJpeg
 {
@@ -30,22 +30,20 @@ public:
 
 	bool load(string path, ofImage &img)
 	{
-		if (load(path, img.getPixelsRef()))
-		{
-			img.update();
-			return true;
-		}
-		return false;
+		ofPixels pix;
+		if (!load(path, pix)) return false;
+
+		img.setFromPixels(pix);
+		return true;
 	}
 	
 	bool load(const ofBuffer& buf, ofImage &img)
 	{
-		if (load(buf, img.getPixelsRef()))
-		{
-			img.update();
-			return true;
-		}
-		return false;
+		ofPixels pix;
+		if (!load(buf, pix)) return false;
+
+		img.setFromPixels(pix);
+		return true;
 	}
 	
 private:
