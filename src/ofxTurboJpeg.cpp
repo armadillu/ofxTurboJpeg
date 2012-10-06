@@ -38,16 +38,57 @@ void ofxTurboJpeg::save(ofBuffer &buf, const ofPixels& pix, int jpegQuality)
 	unsigned long size = 0;
 	int bpp = 3;
 	
-	assert(pix.getImageType() == OF_IMAGE_COLOR);
-	
-	vector<unsigned char> buffer;
-	buffer.resize(pix.getWidth() * pix.getHeight() * bpp);
-	
-	unsigned char * output = &buffer[0];
-	
-	tjCompress(handleCompress, (unsigned char*)pix.getPixels(), pix.getWidth(), pitch, pix.getHeight(), bpp, output, &size, jpegsubsamp, jpegQuality, flags);
-	
-	buf.set((const char*)output, size);
+	if (pix.getImageType() == OF_IMAGE_COLOR)
+	{
+		vector<unsigned char> buffer;
+		buffer.resize(pix.getWidth() * pix.getHeight() * bpp);
+		
+		unsigned char * output = &buffer[0];
+		
+		tjCompress(handleCompress, (unsigned char*)pix.getPixels(), pix.getWidth(), pitch, pix.getHeight(), bpp, output, &size, jpegsubsamp, jpegQuality, flags);
+		
+		buf.set((const char*)output, size);
+	}
+	else if (pix.getImageType() == OF_IMAGE_COLOR_ALPHA)
+	{
+		ofPixels p;
+		p.allocate(pix.getWidth(), pix.getHeight(), 3);
+		
+		const unsigned char *src = pix.getPixels();
+		unsigned char *dst = p.getPixels();
+		
+		int num = pix.getWidth() * pix.getHeight();
+		for (int i = 0; i < num; i++)
+		{
+			dst[0] = src[0];
+			dst[1] = src[1];
+			dst[2] = src[2];
+			src += 4;
+			dst += 3;
+		}
+		
+		save(buf, p, jpegQuality);
+	}
+	else if (pix.getImageType() == OF_IMAGE_GRAYSCALE)
+	{
+		ofPixels p;
+		p.allocate(pix.getWidth(), pix.getHeight(), 3);
+		
+		const unsigned char *src = pix.getPixels();
+		unsigned char *dst = p.getPixels();
+		
+		int num = pix.getWidth() * pix.getHeight();
+		for (int i = 0; i < num; i++)
+		{
+			dst[0] = src[0];
+			dst[1] = src[0];
+			dst[2] = src[0];
+			src += 1;
+			dst += 3;
+		}
+		
+		save(buf, p, jpegQuality);
+	} 
 }
 
 //rgb only for now...
