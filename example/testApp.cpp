@@ -4,11 +4,13 @@
 //--------------------------------------------------------------
 void testApp::setup(){
 
-	ofSetFrameRate(60);
+	float framerate = 5;
 	ofBackground(0, 0, 0, 0);
 	chrono = ofxTimeMeasurements::instance();
+	chrono->setDesiredFrameRate(framerate);
+	ofSetFrameRate(framerate);
+	
 	turboJpegLoadedImage = NULL;
-
 }
 
 //--------------------------------------------------------------
