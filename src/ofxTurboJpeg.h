@@ -21,7 +21,8 @@ class ofxTurboJpeg{
 		ofxTurboJpeg();
 		~ofxTurboJpeg();
 	
-		void save( ofImage * img, string path, int jpegQuality );	
+		void save( ofImage * img, string path, int jpegQuality );
+        unsigned char * compress( ofImage * img, int jpegQuality, unsigned long *size);
 		ofImage* load(string path);
 	
 	private:	
