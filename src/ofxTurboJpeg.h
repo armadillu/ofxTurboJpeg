@@ -11,7 +11,9 @@ public:
 
 	ofxTurboJpeg();
 	~ofxTurboJpeg();
-
+    
+    unsigned char * compress( ofImage * img, int jpegQuality, unsigned long *size);
+    void save( ofImage * img, string path, int jpegQuality );
 	void save(string path, const ofPixels& img, int jpegQuality = 90);
 	void save(ofBuffer &buf, const ofPixels& img, int jpegQuality = 90);
 
