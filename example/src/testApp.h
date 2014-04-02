@@ -2,7 +2,6 @@
 
 #include "ofMain.h"
 #include "ofxTurboJpeg.h"
-#include "ofxTimeMeasurements.h"
 
 class testApp : public ofBaseApp
 {
@@ -25,6 +24,4 @@ public:
 	
 	ofImage turboJpegLoadedImage;	//turboJpg
 	ofImage freeImageLoadedImage;	//freeImage
-	
-	ofxTimeMeasurements * chrono;
 };

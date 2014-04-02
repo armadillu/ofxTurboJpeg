@@ -8,8 +8,6 @@ void testApp::setup()
 	
 	ofBackground(30);
 	
-	chrono = ofxTimeMeasurements::instance();
-	
 	freeImageLoadedImage.loadImage("loadTest.jpg");	
 }
 
@@ -17,25 +15,16 @@ void testApp::setup()
 void testApp::update()
 {
 	// load with turboJPG //////////////////////////
-	chrono->startMeasuring("load turbo jpeg");
 		turbo.load("loadTest.jpg", turboJpegLoadedImage);
-	chrono->stopMeasuring("load turbo jpeg");
 	
 	// load with freeImage //////////////////////////
-	chrono->startMeasuring("load freeImage jpeg");
 	freeImageLoadedImage.loadImage("loadTest.jpg");
-	chrono->stopMeasuring("load freeImage jpeg");
-	
 	
 	// save with turboJPG //////////////////////////
-	chrono->startMeasuring("save turbo jpeg");
 		turbo.save("save turbo.jpg", turboJpegLoadedImage, 75);
-	chrono->stopMeasuring("save turbo jpeg");
 	
 	// save with freeImage //////////////////////////
-	chrono->startMeasuring("save freeImage jpeg");
 	freeImageLoadedImage.saveImage("freeImge.jpg", OF_IMAGE_QUALITY_HIGH);
-	chrono->stopMeasuring("save freeImage jpeg");
 
 }
 
@@ -44,9 +33,6 @@ void testApp::draw()
 {
 	turboJpegLoadedImage.draw(0,0);
 	freeImageLoadedImage.draw( turboJpegLoadedImage.getWidth(), 0);
-	
-	chrono->draw(20, turboJpegLoadedImage.getHeight() + 10);
-
 }
 
 //--------------------------------------------------------------

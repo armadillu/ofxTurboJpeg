@@ -54,7 +54,7 @@ void ofxTurboJpeg::save( ofImage * img, string fileName, int jpegQuality ){
 //rgb only for now...
 unsigned char * ofxTurboJpeg::compress( ofImage * img, int jpegQuality, unsigned long *size){
     
-	if (img == NULL) return;
+	if (img == NULL) return NULL;
     
 	int pitch = 0, flags = 0, jpegsubsamp = 0;
 	*size = 0;
