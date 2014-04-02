@@ -14,30 +14,15 @@
 			<Filter>src</Filter>
 		</ClCompile>
 		<ClCompile Include="..\..\..\addons\ofxTurboJpeg\src\ofxTurboJpeg.cpp">
-			<Filter>addons\ofxTurboJpeg\src</Filter>
+			<Filter></Filter>
 		</ClCompile>
 	</ItemGroup>
 	<ItemGroup>
 		<Filter Include="src">
 			<UniqueIdentifier>{d8376475-7454-4a24-b08a-aac121d3ad6f}</UniqueIdentifier>
 		</Filter>
-		<Filter Include="addons">
-			<UniqueIdentifier>{71834F65-F3A9-211E-73B8-DC85}</UniqueIdentifier>
-		</Filter>
-		<Filter Include="addons\ofxTurboJpeg">
-			<UniqueIdentifier>{AA36D385-996F-03B4-E46D-16F0}</UniqueIdentifier>
-		</Filter>
-		<Filter Include="addons\ofxTurboJpeg\src">
-			<UniqueIdentifier>{6A930F99-3F8D-C554-4246-10B5}</UniqueIdentifier>
-		</Filter>
-		<Filter Include="addons\ofxTurboJpeg\libs">
-			<UniqueIdentifier>{E89988E0-517E-5979-0FEA-A16B}</UniqueIdentifier>
-		</Filter>
-		<Filter Include="addons\ofxTurboJpeg\libs\turbo-jpeg">
-			<UniqueIdentifier>{449E5AF3-A55F-9AE1-AB9B-4FD6}</UniqueIdentifier>
-		</Filter>
-		<Filter Include="addons\ofxTurboJpeg\libs\turbo-jpeg\include">
-			<UniqueIdentifier>{D05939CB-0715-FCEE-A8E6-C0CF}</UniqueIdentifier>
+		<Filter Include="">
+			<UniqueIdentifier>{F7C9AA75-BF98-7ECF-F1A2-17E2}</UniqueIdentifier>
 		</Filter>
 	</ItemGroup>
 	<ItemGroup>
@@ -46,12 +31,6 @@
 		</ClInclude>
 		<ClInclude Include="src\testApp.h">
 			<Filter>src</Filter>
-		</ClInclude>
-		<ClInclude Include="..\..\..\addons\ofxTurboJpeg\src\ofxTurboJpeg.h">
-			<Filter>addons\ofxTurboJpeg\src</Filter>
-		</ClInclude>
-		<ClInclude Include="..\..\..\addons\ofxTurboJpeg\libs\turbo-jpeg\include\turbojpeg.h">
-			<Filter>addons\ofxTurboJpeg\libs\turbo-jpeg\include</Filter>
 		</ClInclude>
 	</ItemGroup>
 	<ItemGroup>
