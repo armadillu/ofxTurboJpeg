@@ -13,7 +13,7 @@ common:
 	# include search paths, this will be usually parsed from the file system
 	# but if the addon or addon libraries need special search paths they can be
 	# specified here separated by spaces or one per line using +=
-	ADDON_INCLUDES = src 
+	ADDON_INCLUDES = src/ 
 	ADDON_INCLUDES += libs/turbo-jpeg/include
 
 	# any special flag that should be passed to the compiler when using this
@@ -35,11 +35,12 @@ common:
 	# in the src folders in libs and the root of the addon. if your addon needs
 	# to include files in different places or a different set of files per platform
 	# they can be specified here
-	ADDON_SOURCES = src/ofxTurboJpeg.cpp
+	ADDON_SOURCES = src/ofxTurboJpeg.h
+	ADDON_SOURCES += src/ofxTurboJpeg.cpp
 
 	# some addons need resources to be copied to the bin/data folder of the project
 	# specify here any files that need to be copied, you can use wildcards like * and ?
-	ADDON_DATA = 
+	ADDON_DATA = libs/turbo-jpeg/lib/osx/libturbojpeg.dylib	
 	
 	# when parsing the file system looking for libraries exclude this for all or
 	# a specific platform
@@ -87,5 +88,4 @@ android/armeabi-v7a:
 	#nothing yet
 
 osx:
-	#nothing yet
-	ADDON_LIBS = libs/turbo-jpeg/lib/osx/libturbojpeg.dylib
+	ADDON_LDFLAGS = ../../../addons/ofxTurboJpeg/libs/turbo-jpeg/lib/osx/libturbojpeg.dylib	

@@ -51,21 +51,6 @@ void ofxTurboJpeg::save( ofImage * img, string fileName, int jpegQuality ){
 	free (output);
 }
 
-//rgb only for now...
-unsigned char * ofxTurboJpeg::compress( ofImage * img, int jpegQuality, unsigned long *size){
-    
-	if (img == NULL) return NULL;
-    
-	int pitch = 0, flags = 0, jpegsubsamp = 0;
-	*size = 0;
-	int bpp = 3;	//rgb only for now...
-    
-	unsigned char * output = (unsigned char*) malloc ( sizeof(char) * img->width * img->height * bpp );
-	tjCompress(handleCompress, img->getPixels() , img->width, pitch, img->height, bpp, output, size, jpegsubsamp, jpegQuality, flags);
-    
-    return output;
-}
-
 void ofxTurboJpeg::save(ofBuffer &buf, const ofPixels& pix, int jpegQuality)
 {
 	int pitch = 0, flags = 0, jpegsubsamp = 0;

@@ -8,7 +8,7 @@ void testApp::setup()
 	
 	ofBackground(30);
 	
-	freeImageLoadedImage.loadImage("loadTest.jpg");	
+	//freeImageLoadedImage.loadImage("loadTest.jpg");
 }
 
 //--------------------------------------------------------------
@@ -18,13 +18,13 @@ void testApp::update()
 		turbo.load("loadTest.jpg", turboJpegLoadedImage);
 	
 	// load with freeImage //////////////////////////
-	freeImageLoadedImage.loadImage("loadTest.jpg");
+	//freeImageLoadedImage.loadImage("loadTest.jpg");
 	
 	// save with turboJPG //////////////////////////
 		turbo.save("save turbo.jpg", turboJpegLoadedImage, 75);
 	
 	// save with freeImage //////////////////////////
-	freeImageLoadedImage.saveImage("freeImge.jpg", OF_IMAGE_QUALITY_HIGH);
+	//freeImageLoadedImage.saveImage("freeImge.jpg", OF_IMAGE_QUALITY_HIGH);
 
 }
 
