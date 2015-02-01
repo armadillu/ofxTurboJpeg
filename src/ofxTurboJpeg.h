@@ -20,10 +20,10 @@ public:
         int pitch = 0, flags = 0, jpegsubsamp = 0;
         *size = 0;
         
-        unsigned int bpp = img.getPixelsRef().getNumChannels();
+        unsigned int bpp = img.getPixels().getNumChannels();
         
         unsigned char * output = (unsigned char*) malloc ( sizeof(char) *  img.getWidth() * img.getHeight() * bpp );
-        tjCompress(handleCompress, img.getPixels() , img.getWidth(), pitch, img.getHeight(), bpp, output, size, jpegsubsamp, jpegQuality, flags);
+        tjCompress(handleCompress, img.getPixels().getData() , img.getWidth(), pitch, img.getHeight(), bpp, output, size, jpegsubsamp, jpegQuality, flags);
         
         return output;
     }
