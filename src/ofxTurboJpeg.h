@@ -34,12 +34,12 @@ public:
 
 	void save(string path, ofImage& img, int jpegQuality = 90)
 	{
-		save(path, img.getPixelsRef(), jpegQuality);
+		save(path, img.getPixels(), jpegQuality);
 	}
 	
 	void save(ofBuffer &buf, ofImage& img, int jpegQuality = 90)
 	{
-		save(buf, img.getPixelsRef(), jpegQuality);
+		save(buf, img.getPixels(), jpegQuality);
 	}
 	
 	bool load(string path, ofPixels &pix);

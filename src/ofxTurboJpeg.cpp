@@ -42,7 +42,7 @@ void ofxTurboJpeg::save( ofImage * img, string fileName, int jpegQuality ){
 	int bpp = 3;	//rgb only for now...
     
 	unsigned char * output = (unsigned char*) malloc ( sizeof(char) * img->width * img->height * bpp );
-	tjCompress(handleCompress, img->getPixels() , img->width, pitch, img->height, bpp, output, &size, jpegsubsamp, jpegQuality, flags);
+	tjCompress(handleCompress, img->getPixels().getData(), img->width, pitch, img->height, bpp, output, &size, jpegsubsamp, jpegQuality, flags);
     
 	string filePath = ofToDataPath( fileName, false);
 	FILE * file = fopen( filePath.c_str(), "wb");
@@ -64,7 +64,7 @@ void ofxTurboJpeg::save(ofBuffer &buf, const ofPixels& pix, int jpegQuality)
 		
 		unsigned char * output = &buffer[0];
 		
-		tjCompress(handleCompress, (unsigned char*)pix.getPixels(), pix.getWidth(), pitch, pix.getHeight(), bpp, output, &size, jpegsubsamp, jpegQuality, flags);
+		tjCompress(handleCompress, (unsigned char*)(pix.getData()), pix.getWidth(), pitch, pix.getHeight(), bpp, output, &size, jpegsubsamp, jpegQuality, flags);
 		
 		buf.set((const char*)output, size);
 	}
@@ -73,8 +73,8 @@ void ofxTurboJpeg::save(ofBuffer &buf, const ofPixels& pix, int jpegQuality)
 		ofPixels p;
 		p.allocate(pix.getWidth(), pix.getHeight(), 3);
 		
-		const unsigned char *src = pix.getPixels();
-		unsigned char *dst = p.getPixels();
+		const unsigned char *src = pix.getData();
+		unsigned char *dst = p.getData();
 		
 		int num = pix.getWidth() * pix.getHeight();
 		for (int i = 0; i < num; i++)
@@ -93,8 +93,8 @@ void ofxTurboJpeg::save(ofBuffer &buf, const ofPixels& pix, int jpegQuality)
 		ofPixels p;
 		p.allocate(pix.getWidth(), pix.getHeight(), 3);
 		
-		const unsigned char *src = pix.getPixels();
-		unsigned char *dst = p.getPixels();
+		const unsigned char *src = pix.getData();
+		unsigned char *dst = p.getData();
 		
 		int num = pix.getWidth() * pix.getHeight();
 		for (int i = 0; i < num; i++)
@@ -129,7 +129,7 @@ bool ofxTurboJpeg::load(const ofBuffer& buf, ofPixels &pix)
 {
 	int w, h;
 	int subsamp;
-	int ok = tjDecompressHeader2(handleDecompress, (unsigned char*)buf.getBinaryBuffer(), buf.size(), &w, &h, &subsamp);
+	int ok = tjDecompressHeader2(handleDecompress, (unsigned char*)buf.getData(), buf.size(), &w, &h, &subsamp);
 	
 	if (ok != 0)
 	{
@@ -139,7 +139,7 @@ bool ofxTurboJpeg::load(const ofBuffer& buf, ofPixels &pix)
 	
 	pix.allocate(w, h, 3);
 	
-	tjDecompress(handleDecompress, (unsigned char*)buf.getBinaryBuffer(), buf.size(), pix.getPixels(), w, 0, h, 3, 0);
+	tjDecompress(handleDecompress, (unsigned char*)buf.getData(), buf.size(), pix.getData(), w, 0, h, 3, 0);
 	
 	return true;
 }
