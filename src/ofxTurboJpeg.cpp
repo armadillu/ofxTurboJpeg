@@ -41,8 +41,8 @@ void ofxTurboJpeg::save( ofImage * img, string fileName, int jpegQuality ){
 	unsigned long size = 0;
 	int bpp = 3;	//rgb only for now...
     
-	unsigned char * output = (unsigned char*) malloc ( sizeof(char) * img->width * img->height * bpp );
-	tjCompress(handleCompress, img->getPixels().getData(), img->width, pitch, img->height, bpp, output, &size, jpegsubsamp, jpegQuality, flags);
+	unsigned char * output = (unsigned char*) malloc ( sizeof(char) * img->getWidth() * img->getHeight() * bpp );
+	tjCompress(handleCompress, img->getPixels().getData(), img->getWidth(), pitch, img->getHeight(), bpp, output, &size, jpegsubsamp, jpegQuality, flags);
     
 	string filePath = ofToDataPath( fileName, false);
 	FILE * file = fopen( filePath.c_str(), "wb");
