@@ -15,13 +15,13 @@ You will need to install libjpeg-turbo (http://sourceforge.net/projects/libjpeg-
 
 #Compiling
 
-* Visual studio 2015 (instructions by [tgfrerer](https://github.com/tgfrerer))
+* Visual studio 2015 (instructions by [tgfrerer](https://github.com/tgfrerer) and [mattfelsen](https://github.com/mattfelsen))
   * turboJPEG libraries for vs2015 compiled straight off the sources using the following recipe:
-  * download turbojpeg release:
-    http://sourceforge.net/projects/libjpeg-turbo/files/1.4.1/libjpeg-turbo-1.4.1-vc.exe/download
-  * download nasm (net assembler): http://www.nasm.us/pub/nasm/releasebuilds/2.11.08/win32/nasm-2.11.08-installer.exe
-  * copy nasm.exe into the cmake/bin directory so it ends up in the PATH for the cmd prompt.
-  * use cmake-gui and cmake to build visual studio project files, compile turbojpeg
-  * find turbojpeg-static.lib and it's debug counterpart.
-  * rename the debug .lib to turbojpeg-staticd.lib (note the 'd' for last character)
-  * copy both lib files into the lib folder in the ofxTurboJpeg addon.
+  * download [turbojpeg source v1.4.1](http://sourceforge.net/projects/libjpeg-turbo/files/1.4.1/libjpeg-turbo-1.4.1.tar.gz/download)
+  * download [nasm (net assembler)](http://www.nasm.us/pub/nasm/releasebuilds/2.11.08/win32/nasm-2.11.08-installer.exe)
+  * add `nasm.exe` to your `%PATH%` environment variable
+    * this depends on where you installed nasm, but should be something like `C:\Users\YOUR_USERNAME\AppData\Local\nasm`
+    * edit in `Control Panel > System > Advanced system settings > Environment variables > Path`
+  * use `cmake-gui.exe` to build visual studio project files
+  * open and compile `libjpeg-turbo.sln` in `Debug` and `Release` modes
+  * find `turbojpeg-static.lib` in `build\[Debug|Release]` and copy into the proper locations in the ofxTurboJpeg addon
