@@ -12,7 +12,6 @@
 
 #include "turbojpeg.h"
 #include "ofMain.h"
-#include <fstream.h>
 
 class ofxTurboJpeg{
 	
