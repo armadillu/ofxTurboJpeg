@@ -23,6 +23,3 @@ vs:
 	# ADDON_LIBS = libs/libwebsockets/lib/vs/x64/Debug/turbojpeg-static.lib
 	# x64/Release 
 	# ADDON_LIBS = libs/libwebsockets/lib/vs/x64/Release/turbojpeg-static.lib
-
-osx:
-	ADDON_DLLS_TO_COPY = libs/turbo-jpeg/lib/osx/libturbojpeg.dylib
