@@ -30,16 +30,10 @@ public:
     
     void save( ofImage * img, string path, int jpegQuality );
 	void save(string path, const ofPixels& img, int jpegQuality = 90);
-	void save(ofBuffer &buf, const ofPixels& img, int jpegQuality = 90);
 
 	void save(string path, ofImage& img, int jpegQuality = 90)
 	{
 		save(path, img.getPixels(), jpegQuality);
-	}
-	
-	void save(ofBuffer &buf, ofImage& img, int jpegQuality = 90)
-	{
-		save(buf, img.getPixels(), jpegQuality);
 	}
 	
 	bool load(string path, ofPixels &pix);
@@ -69,4 +63,5 @@ private:
 	tjhandle handleCompress;
 	tjhandle handleDecompress;
 
+    void save(ofBuffer &buf, const ofPixels& img, int jpegQuality = 90);
 };

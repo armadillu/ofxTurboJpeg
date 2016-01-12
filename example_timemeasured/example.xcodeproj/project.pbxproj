@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		34A1CD0B670B0A4266464779 /* ofxTurboJpeg.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CC7594CA5E21F32F237CA87E /* ofxTurboJpeg.cpp */; };
+		567A8E85CAD379B59206852D /* ofxTimeMeasurements.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 113EC1656B3145FE1FA1B295 /* ofxTimeMeasurements.cpp */; };
 		B061F2D71BF6E726007A2B53 /* libturbojpeg.dylib in Copy Files */ = {isa = PBXBuildFile; fileRef = B061F2D41BF6E6E0007A2B53 /* libturbojpeg.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		E4328149138ABC9F0047C5CB /* openFrameworksDebug.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E4328148138ABC890047C5CB /* openFrameworksDebug.a */; };
 		E4B69E200A3A1BDC003C02F2 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4B69E1D0A3A1BDC003C02F2 /* main.cpp */; };
@@ -46,6 +47,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		113EC1656B3145FE1FA1B295 /* ofxTimeMeasurements.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxTimeMeasurements.cpp; path = ../../../addons/ofxTimeMeasurements/src/ofxTimeMeasurements.cpp; sourceTree = SOURCE_ROOT; };
+		12FDE6FD42DC4BF9763E1D00 /* ofxTimeMeasurementsMacros.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxTimeMeasurementsMacros.h; path = ../../../addons/ofxTimeMeasurements/src/ofxTimeMeasurementsMacros.h; sourceTree = SOURCE_ROOT; };
+		83F10DECDFF16F9F1E67D731 /* ofxTimeMeasurements.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxTimeMeasurements.h; path = ../../../addons/ofxTimeMeasurements/src/ofxTimeMeasurements.h; sourceTree = SOURCE_ROOT; };
 		8D69533A53ED061E713EAF84 /* ofxTurboJpeg.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxTurboJpeg.h; path = ../../../addons/ofxTurboJpeg/src/ofxTurboJpeg.h; sourceTree = SOURCE_ROOT; };
 		B061F2D41BF6E6E0007A2B53 /* libturbojpeg.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libturbojpeg.dylib; sourceTree = "<group>"; };
 		BFCBBFCAA2C92729B296C958 /* turbojpeg.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = turbojpeg.h; path = "../../../addons/ofxTurboJpeg/libs/turbo-jpeg/include/turbojpeg.h"; sourceTree = SOURCE_ROOT; };
@@ -105,6 +109,14 @@
 			name = local_addons;
 			sourceTree = "<group>";
 		};
+		98D685E6144A167898628CFF /* ofxTimeMeasurements */ = {
+			isa = PBXGroup;
+			children = (
+				EFCD60E2ACA4B88D4D54E3F0 /* src */,
+			);
+			name = ofxTimeMeasurements;
+			sourceTree = "<group>";
+		};
 		B061F2D11BF6E6E0007A2B53 /* lib */ = {
 			isa = PBXGroup;
 			children = (
@@ -125,6 +137,7 @@
 		BB4B014C10F69532006C3DED /* addons */ = {
 			isa = PBXGroup;
 			children = (
+				98D685E6144A167898628CFF /* ofxTimeMeasurements */,
 				334E8B760835B4E270BF0E5C /* ofxTurboJpeg */,
 			);
 			name = addons;
@@ -176,6 +189,16 @@
 				FBCF5E7B85CE61B729846783 /* turbo-jpeg */,
 			);
 			name = libs;
+			sourceTree = "<group>";
+		};
+		EFCD60E2ACA4B88D4D54E3F0 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				113EC1656B3145FE1FA1B295 /* ofxTimeMeasurements.cpp */,
+				83F10DECDFF16F9F1E67D731 /* ofxTimeMeasurements.h */,
+				12FDE6FD42DC4BF9763E1D00 /* ofxTimeMeasurementsMacros.h */,
+			);
+			name = src;
 			sourceTree = "<group>";
 		};
 		FBCF5E7B85CE61B729846783 /* turbo-jpeg */ = {
@@ -276,6 +299,7 @@
 			files = (
 				E4B69E200A3A1BDC003C02F2 /* main.cpp in Sources */,
 				E4B69E210A3A1BDC003C02F2 /* ofApp.cpp in Sources */,
+				567A8E85CAD379B59206852D /* ofxTimeMeasurements.cpp in Sources */,
 				34A1CD0B670B0A4266464779 /* ofxTurboJpeg.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
