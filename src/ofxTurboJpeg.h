@@ -63,6 +63,7 @@ public:
 		return true;
 	}
 	
+	
 private:
 
 	tjhandle handleCompress;

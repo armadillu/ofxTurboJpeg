@@ -40,8 +40,7 @@ void ofxTurboJpeg::save( ofImage * img, string fileName, int jpegQuality ){
 	int pitch = 0, flags = 0, jpegsubsamp = 0;
 	unsigned long size = 0;
 	int bpp = 3;	//rgb only for now...
-    
-	unsigned char * output = (unsigned char*) malloc ( sizeof(char) * img->getWidth() * img->getHeight() * bpp );
+unsigned char * output = (unsigned char*) malloc ( sizeof(char) * img->getWidth() * img->getHeight() * bpp );
 	tjCompress(handleCompress, img->getPixels().getData(), img->getWidth(), pitch, img->getHeight(), bpp, output, &size, jpegsubsamp, jpegQuality, flags);
     
 	string filePath = ofToDataPath( fileName, false);
@@ -55,10 +54,11 @@ void ofxTurboJpeg::save(ofBuffer &buf, const ofPixels& pix, int jpegQuality)
 {
 	int pitch = 0, flags = 0, jpegsubsamp = 0;
 	unsigned long size = 0;
-	int bpp = 3;
+	
 	
 	if (pix.getImageType() == OF_IMAGE_COLOR)
 	{
+		int bpp = 3;
 		vector<unsigned char> buffer;
 		buffer.resize(pix.getWidth() * pix.getHeight() * bpp);
 		
@@ -110,7 +110,6 @@ void ofxTurboJpeg::save(ofBuffer &buf, const ofPixels& pix, int jpegQuality)
 	} 
 }
 
-//rgb only for now...
 void ofxTurboJpeg::save(string path, const ofPixels& pix, int jpegQuality)
 {
 	ofBuffer buf;
