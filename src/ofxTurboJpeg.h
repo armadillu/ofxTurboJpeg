@@ -13,19 +13,35 @@ public:
 	~ofxTurboJpeg();
     
     template <class T>
-    unsigned char * compress( T & img, int jpegQuality, unsigned long *size){
+    bool compress( T & img, int jpegQuality, ofBuffer & buffer){
         
         if (img.getWidth() == 0) return NULL;
         
         int pitch = 0, flags = 0, jpegsubsamp = 0;
-        *size = 0;
+        buffer.clear();
         
         unsigned int bpp = img.getPixels().getNumChannels();
+        unsigned int bytesPerLine = img.getPixels().getBytesPerPixel() *  img.getWidth();
+        unsigned char* data = (unsigned char*) malloc ( sizeof(char) *  img.getWidth() * img.getHeight() * bpp );
         
-        unsigned char * output = (unsigned char*) malloc ( sizeof(char) *  img.getWidth() * img.getHeight() * bpp );
-        tjCompress(handleCompress, img.getPixels().getData() , img.getWidth(), pitch, img.getHeight(), bpp, output, size, jpegsubsamp, jpegQuality, flags);
+        unsigned long size = 0;
         
-        return output;
+        if ( bpp == 1 ){
+            jpegsubsamp = TJSAMP_GRAY;
+        }
+        
+        int ok = tjCompress2(handleCompress, img.getPixels().getData() , img.getWidth(), bytesPerLine, img.getHeight(), getTJPixelFormat(img.getPixels().getImageType()), &data, &size, jpegsubsamp, jpegQuality, flags);
+        
+        if (ok != 0)
+        {
+            ofLogError("Error in tjCompress():")<<tjGetErrorStr();
+            free(data);
+            return false;
+        } else {
+            buffer.set(reinterpret_cast<char*>(data), size);
+            free(data);
+            return true;
+        }
     }
     
     void save( ofImage * img, string path, int jpegQuality );
@@ -64,4 +80,5 @@ private:
 	tjhandle handleDecompress;
 
     void save(ofBuffer &buf, const ofPixels& img, int jpegQuality = 90);
+    int getTJPixelFormat( ofImageType fmt );
 };
