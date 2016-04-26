@@ -22,7 +22,7 @@ public:
         
         unsigned int bpp = img.getPixels().getNumChannels();
         unsigned int bytesPerLine = img.getPixels().getBytesPerPixel() *  img.getWidth();
-        unsigned char* data = (unsigned char*) malloc ( sizeof(char) *  img.getWidth() * img.getHeight() * bpp );
+        unsigned char* data = NULL;
         
         unsigned long size = 0;
         
@@ -30,16 +30,17 @@ public:
             jpegsubsamp = TJSAMP_GRAY;
         }
         
-        int ok = tjCompress2(handleCompress, img.getPixels().getData() , img.getWidth(), bytesPerLine, img.getHeight(), getTJPixelFormat(img.getPixels().getImageType()), &data, &size, jpegsubsamp, jpegQuality, flags);
+        int ok = tjCompress2(handleCompress, img.getPixels().getData(), img.getWidth(), bytesPerLine, img.getHeight(), getTJPixelFormat(img.getPixels().getImageType()), &data, &size, jpegsubsamp, jpegQuality, flags);
         
         if (ok != 0)
         {
             ofLogError("Error in tjCompress():")<<tjGetErrorStr();
-            free(data);
+            tjFree(data);
+
             return false;
         } else {
-            buffer.set(reinterpret_cast<char*>(data), size);
-            free(data);
+            buffer.set((char*)(data), size);
+            tjFree(data);
             return true;
         }
     }
