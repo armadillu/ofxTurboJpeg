@@ -142,3 +142,17 @@ bool ofxTurboJpeg::load(const ofBuffer& buf, ofPixels &pix)
 	
 	return true;
 }
+
+
+int ofxTurboJpeg::getTJPixelFormat( ofImageType fmt ){
+    switch (fmt){
+        case OF_IMAGE_COLOR:
+            return TJPF_RGB;
+        case OF_IMAGE_COLOR_ALPHA:
+            return TJPF_RGBA;
+        case OF_IMAGE_GRAYSCALE:
+            return TJPF_GRAY;
+        case OF_IMAGE_UNDEFINED:
+            return TJPF_RGB;
+    }
+}
