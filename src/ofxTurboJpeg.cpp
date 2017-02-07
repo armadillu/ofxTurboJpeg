@@ -44,8 +44,10 @@ bool ofxTurboJpeg::load(ofPixels &pix, const ofBuffer& buf){
 		return false;
 	}
 
-	pix.allocate(w, h, 3);
-	tjDecompress(handleDecompress, (unsigned char*)buf.getData(), buf.size(), pix.getData(), w, 0, h, 3, 0);
+	if(pix.getWidth() != w || pix.getHeight() != h || pix.getImageType() != OF_IMAGE_COLOR ){
+		pix.allocate(w, h, 3);
+	}
+	tjDecompress2(handleDecompress, (unsigned char*)buf.getData(), buf.size(), pix.getData(), 0, 0, 0, TJPF_RGB, TJFLAG_FASTDCT);
 	return true;
 }
 
