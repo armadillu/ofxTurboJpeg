@@ -1,7 +1,7 @@
 meta:
 	ADDON_NAME = ofxTurboJpeg
 	ADDON_DESCRIPTION = OF wrapper for turbo-jpeg
-	ADDON_AUTHOR = Oriol Ferrer Mesi, Satoru Higa, Brett Renfer
+	ADDON_AUTHOR = Oriol Ferrer Mesià, Satoru Higa, Brett Renfer
 	ADDON_TAGS = "jpeg" "turboJPEG" "binary" "image"
 	ADDON_URL = https://github.com/robotconscience/ofxTurboJpeg
 
@@ -26,3 +26,4 @@ vs:
 	# ADDON_LIBS = libs/libwebsockets/lib/vs/x64/Debug/turbojpeg-static.lib
 	# x64/Release 
 	# ADDON_LIBS = libs/libwebsockets/lib/vs/x64/Release/turbojpeg-static.lib
+
