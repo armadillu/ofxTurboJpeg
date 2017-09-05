@@ -13,7 +13,7 @@ void ofApp::setup(){
 void ofApp::update(){
 	
 	// load with turboJPG //////////////////////////
-    turbo.load("loadTest.jpg", turboJpegLoadedImage);
+    turbo.load(turboJpegLoadedImage,"loadTest.jpg");
 
 	// load with freeImage //////////////////////////
 	freeImageLoadedImage.load("loadTest.jpg");
