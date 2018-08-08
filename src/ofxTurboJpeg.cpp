@@ -37,10 +37,11 @@ bool ofxTurboJpeg::load(ofPixels &pix, const string & path){
 bool ofxTurboJpeg::load(ofPixels &pix, const ofBuffer& buf){
 	int w, h;
 	int subsamp;
-	int ok = tjDecompressHeader2(handleDecompress, (unsigned char*)buf.getData(), buf.size(), &w, &h, &subsamp);
+	int cs = -1;
+	int ok = tjDecompressHeader3(handleDecompress, (unsigned char*)buf.getData(), buf.size(), &w, &h, &subsamp, &cs);
 
 	if (ok != 0){
-		ofLogError("ofxTurboJpeg") << "Error in tjDecompressHeader2():" << tjGetErrorStr() ;
+		ofLogError("ofxTurboJpeg") << "Error in tjDecompressHeader3(): " << tjGetErrorStr();
 		return false;
 	}
 
