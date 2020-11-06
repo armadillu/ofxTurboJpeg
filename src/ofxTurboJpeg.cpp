@@ -67,15 +67,15 @@ bool ofxTurboJpeg::load(ofImage &img, const ofBuffer& buf){
 
 
 void ofxTurboJpeg::save(ofImage * img, const string & path, int jpegQuality ){
-    
+	
 	if (img == NULL) return;
-    
+	
 	int pitch = 0, flags = 0, jpegsubsamp = 0;
 	unsigned long size = 0;
 	int bpp = 3;	//rgb only for now...
 	unsigned char * output = (unsigned char*) malloc ( sizeof(char) * img->getWidth() * img->getHeight() * bpp );
 	tjCompress(handleCompress, img->getPixels().getData(), img->getWidth(), pitch, img->getHeight(), bpp, output, &size, jpegsubsamp, jpegQuality, flags);
-    
+	
 	string filePath = ofToDataPath( path, false);
 	FILE * file = fopen( filePath.c_str(), "wb");
 	fwrite ( output , 1 , size , file );
@@ -155,14 +155,16 @@ void ofxTurboJpeg::save(const ofImage& img, const string & path, int jpegQuality
 
 
 int ofxTurboJpeg::getTJPixelFormat( ofImageType fmt ){
-    switch (fmt){
-        case OF_IMAGE_COLOR:
-            return TJPF_RGB;
-        case OF_IMAGE_COLOR_ALPHA:
-            return TJPF_RGBA;
-        case OF_IMAGE_GRAYSCALE:
-            return TJPF_GRAY;
-        case OF_IMAGE_UNDEFINED:
-            return TJPF_RGB;
-    }
+	switch (fmt){
+		case OF_IMAGE_COLOR:
+			return TJPF_RGB;
+		case OF_IMAGE_COLOR_ALPHA:
+			return TJPF_RGBA;
+		case OF_IMAGE_GRAYSCALE:
+			return TJPF_GRAY;
+		case OF_IMAGE_UNDEFINED:
+			return TJPF_RGB;
+	}
+	ofLogError("ofxTurboJpeg") << "getTJPixelFormat() unknown imageType!";
+	return 0;
 }
