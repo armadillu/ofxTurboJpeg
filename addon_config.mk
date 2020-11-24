@@ -15,6 +15,11 @@ osx:
 linux64:
 	ADDON_LDFLAGS = -lturbojpeg
 
+linuxarmv7l:
+
+	ADDON_LIBS = libs/turbo-jpeg/lib/linuxarmv7l/libjpeg.a
+	ADDON_LIBS += libs/turbo-jpeg/lib/linuxarmv7l/libturbojpeg.a
+
 vs:
 	# These should get automatically set up by the projectGenerator. If you're adding
 	# to a project manually, use the following pattern:
